@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produto</title>
+</head>
+<body>
+
+    <table border="3px">
+        <h1 style="background-color: rgb(0, 119, 255);">Loja - Produtos</h1>
+        <h3>Produtos Cadastrados</h3>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Categoria</th>
+                <th>Nome</th>
+                <th>Descrição</th>
+                <th>Valor</th>
+                <th>Editar</th>
+            </tr>
+        </thead>
+
+        <% for (let i=0; i < listaProduto.length; i++) {%>
+
+            <tr>
+                <td>
+                    <%=listaProduto[i].id%>
+                </td>
+                <td>
+                    <%=listaProduto[i].categoria%>
+                </td>
+                <td>
+                    <%=listaProduto[i].name%>
+                </td>
+                <td>
+                    <%=listaProduto[i].descricao%>
+                </td>
+                <td>
+                    <%=listaProduto[i].preco%>
+                </td>
+                <td>
+                    <a href="/produto-editar?id=<%=listaProduto[i].id%>">
+                        <input type="submit" value="Editar" style="background-color: red;">
+                    </a>
+                </td>
+            </tr>
+        <%}%>  
+    </table>
+    
+    <br>
+
+    <a style="background-color: rgb(107, 171, 243);" href="/">Início</a>  
+
+    <br><br>
+
+    <a style="background-color: rgb(107, 171, 243);" href="/cadastrarProduto">Cadastrar Produto</a>
+
+</body>
+</html>

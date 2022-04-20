@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Produto</title>
+</head>
+<body>
+    <div class="container">
+        <div class="box">
+            <fieldset>
+                <h1 style="background-color: rgb(0, 119, 255);">Loja - Produtos</h1>
+                <h3>Novo Produto</h3>
+                <form action="/produto-salvar" method="post">
+                    <label for="name">Nome: </label>
+                    <input type="text" name="name" id="nome"> <br>
+
+                    <label for="descricao">Descrição: </label>
+                    <textarea name="descricao" id="descricao" cols="40" rows="5"></textarea> <br>
+
+                    <label>Categoria</label>
+                    <select name="categoria">
+                        <% listaCategoria.forEach(categoria => { %> 
+                            <option value=<%= categoria.valor %>> <%= categoria.valor %> </option>
+                        <% }); %> 
+                    </select>
+        
+                    <br><br>
+                    
+                    <label for="preco">Preço: </label>
+                    <input type="text" name="preco" id="preco"> <br>
+
+                    <input type="submit" value="Salvar">
+                    
+                    <br><br>
+
+                    <a style="background-color: rgb(107, 171, 243);" href="/">Início</a>
+                    
+                </form>
+            </fieldset>
+        </div>
+    </div>
+
+</body>
+</html>
