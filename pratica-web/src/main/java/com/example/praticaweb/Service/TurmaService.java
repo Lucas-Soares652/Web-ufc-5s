@@ -3,16 +3,12 @@ package com.example.praticaweb.Service;
 import com.example.praticaweb.entities.Aluno;
 import com.example.praticaweb.entities.Turma;
 import com.example.praticaweb.exceptionHandler.*;
-import com.example.praticaweb.repositories.AlunoRepository;
 import com.example.praticaweb.repositories.TurmaRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.server.ResponseStatusException;
 
-import java.util.HashSet;
 import java.util.Set;
 
 
@@ -20,10 +16,10 @@ import java.util.Set;
 public class TurmaService {
 
     @Autowired
-    TurmaRepository repository;
+    private TurmaRepository repository;
 
     @Autowired
-    AlunoRepository alunoRepository;
+    private AlunoService alunoservice;
 
     @Transactional(readOnly = true)
     public Iterable<Turma> findAll() throws Exception{
@@ -49,7 +45,7 @@ public class TurmaService {
             turma.setCodigo(newTurma.getCodigo());
             turma.setDisciplina(newTurma.getDisciplina());
             turma.setSemestre(newTurma.getSemestre());
-            turma.setAlunos(saveAlunos(newTurma));
+            turma.setAlunos(alunoservice.saveAlunos(newTurma));
             repository.save(turma);
 
             return turma;
@@ -58,20 +54,6 @@ public class TurmaService {
         catch (Exception e){
             throw new Exception(e);
         }
-    }
-
-    private Set<Aluno> saveAlunos(Turma newTurma){
-        Set<Aluno> alunos = new HashSet<>();
-        Aluno exist;
-        for (Aluno aluno : newTurma.getAlunos()){
-            exist = alunoRepository.findByMatricula(aluno.getMatricula());
-            if (exist != null) {
-                alunos.add(exist);
-                continue;
-            }
-            alunos.add(aluno);
-        }
-        return alunos;
     }
 
     public Turma findByCodigo(int codigo) throws Exception{
@@ -98,7 +80,7 @@ public class TurmaService {
             turma.setCodigo(editTurma.getCodigo());
             turma.setSemestre(editTurma.getSemestre());
             turma.setDisciplina(editTurma.getDisciplina());
-            turma.setAlunos(saveAlunos(editTurma));
+            turma.setAlunos(alunoservice.saveAlunos(editTurma));
             repository.save(turma);
 
             return turma;
@@ -146,8 +128,15 @@ public class TurmaService {
             if (turma == null)
                 throw new TurmaNotFoundException();
 
-            if (existAluno(turma, aluno))
+            if (alunoservice.alunoIsOnTheList(turma, aluno))
                 throw new AlunoBadRequestException();
+
+            Aluno student = alunoservice.isNullAluno(aluno.getMatricula());
+            if (student != null){
+                turma.getAlunos().add(student);
+                repository.save(turma);
+                return turma;
+            }
 
             turma.getAlunos().add(aluno);
             repository.save(turma);
@@ -156,19 +145,6 @@ public class TurmaService {
         catch (Exception e){
             throw new Exception(e);
         }
-    }
-
-    private boolean existAluno(Turma turma, Aluno newAluno){
-        Aluno exist = alunoRepository.findByMatricula(newAluno.getMatricula());;
-        if (exist == null)
-            return false;
-
-        for (Aluno aluno : turma.getAlunos()){
-            if (aluno.getMatricula() == newAluno.getMatricula())
-                return true;
-        }
-
-        return false;
     }
 
     public Turma deleteAlunoByMatriculaAndCodigoTurma(int codigo, int matricula) throws Exception{
