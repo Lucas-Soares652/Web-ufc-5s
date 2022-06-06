@@ -1,8 +1,15 @@
 package com.example.praticaweb.entities;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "aluno")
 public class Aluno {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private int matricula;
     private String nome;
     private String email;
@@ -45,7 +52,7 @@ public class Aluno {
         return email;
     }
 
-    public void setEmai(String email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 }

@@ -1,19 +1,34 @@
 package com.example.praticaweb.entities;
 
-import java.util.List;
+import javax.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
+@Entity
+@Table(name = "turma")
 public class Turma {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private int codigo;
     private String disciplina;
     private int semestre;
-    public List<Aluno> alunos;
+
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+            name = "turma_aluno",
+            joinColumns = @JoinColumn(name = "turma_id"),
+            inverseJoinColumns = @JoinColumn(name = "aluno_id")
+    )
+    private Set<Aluno> alunos = new HashSet<>();
 
     public Turma() {
     }
 
-    public Turma(Long id, int codigo, String disciplina, int semestre, List<Aluno> alunos) {
+    public Turma(Long id, int codigo, String disciplina, int semestre, Set<Aluno> alunos) {
         this.id = id;
         this.codigo = codigo;
         this.disciplina = disciplina;
@@ -53,19 +68,11 @@ public class Turma {
         this.semestre = semestre;
     }
 
-    public List<Aluno> getAlunos() {
+    public Set<Aluno> getAlunos() {
         return alunos;
     }
 
-    public void setAlunos(List<Aluno> alunos) {
+    public void setAlunos(Set<Aluno> alunos) {
         this.alunos = alunos;
-    }
-
-    public void addAluno(Aluno aluno){
-        this.alunos.add(aluno);
-    }
-
-    public void removeAluno(Aluno aluno){
-        this.alunos.remove(aluno);
     }
 }
