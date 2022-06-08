@@ -1,7 +1,5 @@
 package com.example.praticaweb;
 
-import com.example.praticaweb.entities.Aluno;
-import com.example.praticaweb.entities.Turma;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

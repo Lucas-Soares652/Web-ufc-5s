@@ -1,12 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta nome="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Prática Web</title>
 </head>
 <body>
-    <p>Hello word!</p>
+    <h1>SPA - AJAX</h1>
+    <h3>Turmas - Listagem</h3>
+    <div id="listaTurmas"></div>
+    <h3>Cadastrar Turma</h3>
+    <div>
+        Disciplina: <input type="text" id="disTurma"> <br/>
+        Codigo: <input type="number" id="codturma"> <br/>
+        Semestre: <input type="number" id="semTurma"> <br/>
+        <input type="button" value="Save" onclick="save()">
+    </div>
 </body>
+<script>
+    var xhr = new XMLHttpRequest();
+    
+    xhr.open("GET", "/api/turma", true);
+    xhr.responseType = "json"
+    xhr.onload = function (){
+        if (this.readyState == 4 && this.status == 200) {
+            turmas = xhr.response
+        
+            listaTurmasDiv = document.getElementById("listaTurmas");
+            lista = '<ul>';
+        
+            for (const i in turmas){
+                let t = turmas[i];
+                lista += '<li>' + 'disciplina: ' + t.disciplina + ' - ' + 'código: ' + t.codigo + ' - ' + 'semestre: ' + t.semestre + '</li>';
+            }
+        
+            lista += '<ul>';
+                listaTurmasDiv.innerHTML = lista;
+        }
+        else if(this.readyState == 4 && this.status == 404){
+            alert("Não há registro de turmas");
+        }
+    };
+    xhr.send();
+
+    function save(){
+        let disciplina = document.getElementById("disTurma").value;
+        let codigo = document.getElementById("codturma").value;
+        let semestre = document.getElementById("semTurma").value;
+        newturm = {disciplina: disciplina, codigo: parseInt(codigo), semestre: parseInt(semestre)};
+       
+        xhr.open("POST", '/api/turma', true);
+
+        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+        xhr.send(JSON.stringify(newturm));
+
+        xhr.onload = function(){
+            if (this.readyState == 4 && this.status == 400){
+                alert("Turma já existe");          
+            };
+        };
+    };
+</script>
 </html>

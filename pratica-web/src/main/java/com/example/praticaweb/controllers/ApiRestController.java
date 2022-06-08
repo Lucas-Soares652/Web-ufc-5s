@@ -1,6 +1,6 @@
 package com.example.praticaweb.controllers;
 
-import com.example.praticaweb.Service.TurmaService;
+import com.example.praticaweb.services.TurmaService;
 import com.example.praticaweb.entities.Aluno;
 import com.example.praticaweb.entities.Turma;
 import org.springframework.beans.factory.annotation.Autowired;
