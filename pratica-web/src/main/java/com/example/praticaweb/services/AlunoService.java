@@ -1,4 +1,4 @@
-package com.example.praticaweb.Service;
+package com.example.praticaweb.service;
 
 import com.example.praticaweb.entities.Aluno;
 import com.example.praticaweb.entities.Turma;

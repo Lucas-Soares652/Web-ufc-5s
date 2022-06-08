@@ -1,4 +1,4 @@
-package com.example.praticaweb.Service;
+package com.example.praticaweb.service;
 
 import com.example.praticaweb.entities.Aluno;
 import com.example.praticaweb.entities.Turma;
@@ -97,7 +97,7 @@ public class TurmaService {
                 throw new TurmaNotFoundException();
 
             turma.getAlunos().removeAll(turma.getAlunos());
-            repository.save(turma);
+            //repository.save(turma);
 
             repository.delete(turma);
         }
