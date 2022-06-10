@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta nome="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>SPA - AJAX</h1>
+    <div>
+        Matricula: <input type="number" id="alunoMatricula"> <br/>
+        Nome: <input type="text" id="alunoNome"> <br/>
+        Email: <input type="number" id="alunoEmail"> <br/>
+        <input type="button" value="Save" onclick="save()">
+    </div>
+    <div id="listaProdutos"></div>
+        <script type="text/javascript">
+	    var xhttp = new XMLHttpRequest();
+            xhttp.open("GET", "/api/", true);
+            xhttp.onload = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    produtos = JSON.parse(xhttp.responseText);
+                    produtosDiv = document.getElementById("produtos");
+   
+                    produtosDiv.innerHTML = JSON.stringify(produtos);
+                   
+                    listaProdutosDiv = document.getElementById("listaProdutos");
+                    lista = '<ul>';
+                   
+                    for (const i in produtos){
+                        let p = produtos[i];
+                        lista += '<li>' + p.id + ' - ' + p.name + ' - ' + p.price + '</li>';
+                    }
+                   
+                    lista += '<ul>';
+                    listaProdutosDiv.innerHTML = lista;
+                }
+            };
+            xhttp.send();
+        </script>
+        <script type="text/javascript">
+       
+            function save(){
+                let matricula = document.getElementById("alunoMatricula").value;
+                let nome = document.getElementById("alunoNome").value;
+                let price = document.getElementById("alunoEmail").value;
+                newAluno = {matricula: parseInt(matricula), nome: nome, email: email};
+               
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", '/api/turma/4/alunos', true);
+    
+                xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    
+                xhr.send(JSON.stringify(newAluno));
+            }
+        </script>
+</body>
+</html>
