@@ -49,7 +49,7 @@ public class TurmaService {
     public Iterable<Turma> getAllTurmas() throws Exception{
         try {
             Iterable<Turma> turmas = repository.findAll();
-            if (turmas == null)
+            if (!turmas.iterator().hasNext())
                 throw new TurmaNotFoundException();
 
             return turmas;
@@ -64,7 +64,7 @@ public class TurmaService {
     public Turma addAlunoByTurmaId(Long id, Aluno newAluno) throws Exception{
         try {
             Optional<Turma> turma = repository.findById(id);
-            if (turma == null)
+            if (turma.isEmpty())
                 throw new TurmaNotFoundException();
             if (alunoService.alunoIsOnTheList(turma.get(), newAluno))
                 throw new AlunoBadRequestException();
