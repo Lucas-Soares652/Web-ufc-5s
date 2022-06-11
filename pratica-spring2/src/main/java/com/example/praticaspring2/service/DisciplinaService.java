@@ -14,15 +14,6 @@ public class DisciplinaService {
     @Autowired
     private DisciplinaRepository repository;
 
-    @Transactional(readOnly = true)
-    public Disciplina isNullDisciplina(Disciplina newDisciplina){
-        Disciplina disciplina = repository.findByCodigo(newDisciplina.getCodigo());
-        if (disciplina != null)
-            return disciplina;
-
-        return newDisciplina;
-    }
-
     @Transactional
     public Disciplina addDisciplina(Disciplina newDisciplina) throws Exception{
         try {
@@ -55,5 +46,14 @@ public class DisciplinaService {
         catch (Exception e){
             throw new Exception(e);
         }
+    }
+
+    @Transactional(readOnly = true)
+    public Disciplina isNullDisciplina(Disciplina newDisciplina){
+        Disciplina disciplina = repository.findByCodigo(newDisciplina.getCodigo());
+        if (disciplina != null)
+            return disciplina;
+
+        return newDisciplina;
     }
 }

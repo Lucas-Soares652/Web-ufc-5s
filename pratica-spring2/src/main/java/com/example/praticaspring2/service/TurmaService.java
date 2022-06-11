@@ -5,6 +5,7 @@ import com.example.praticaspring2.entities.Turma;
 import com.example.praticaspring2.exceptionHandler.aluno.AlunoBadRequestException;
 import com.example.praticaspring2.exceptionHandler.turma.TurmaBadRequestException;
 import com.example.praticaspring2.exceptionHandler.turma.TurmaNotFoundException;
+import com.example.praticaspring2.exceptionHandler.turma.TurmasNotFoundException;
 import com.example.praticaspring2.repositories.TurmaRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +51,7 @@ public class TurmaService {
         try {
             Iterable<Turma> turmas = repository.findAll();
             if (!turmas.iterator().hasNext())
-                throw new TurmaNotFoundException();
+                throw new TurmasNotFoundException();
 
             return turmas;
 
@@ -67,7 +68,7 @@ public class TurmaService {
             if (turma.isEmpty())
                 throw new TurmaNotFoundException();
             if (alunoService.alunoIsOnTheList(turma.get(), newAluno))
-                throw new AlunoBadRequestException();
+                throw new AlunoBadRequestException("Aluno já está matriculado na turma");
 
             turma.get().getAlunos().add(newAluno);
             repository.save(turma.get());

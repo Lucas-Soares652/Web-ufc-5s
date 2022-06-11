@@ -28,7 +28,7 @@ public class AlunoServiceAdvince {
     @ResponseBody
     @ExceptionHandler(AlunoBadRequestException.class)
     public ResponseEntity<MessageExceptionHandler> alunoBadRequest(AlunoBadRequestException alunoBadRequestException){
-        MessageExceptionHandler error = new MessageExceptionHandler(new Date(), HttpStatus.BAD_REQUEST.value(), "Aluno já está matriculado na turma");
+        MessageExceptionHandler error = new MessageExceptionHandler(new Date(), HttpStatus.BAD_REQUEST.value(), alunoBadRequestException.getMessage());
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 }
