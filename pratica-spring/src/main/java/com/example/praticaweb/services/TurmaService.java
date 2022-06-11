@@ -25,7 +25,7 @@ public class TurmaService {
     public Iterable<Turma> findAll() throws Exception{
         try {
             Iterable<Turma> list = repository.findAll();
-            if (list == null)
+            if (!list.iterator().hasNext())
                 throw new TurmasNotFoundException();
 
             return list;
@@ -56,6 +56,7 @@ public class TurmaService {
         }
     }
 
+    @Transactional(readOnly = true)
     public Turma findByCodigo(int codigo) throws Exception{
 
         try{
@@ -71,6 +72,7 @@ public class TurmaService {
         }
     }
 
+    @Transactional
     public Turma editTurmaByCodigo(int codigo, Turma editTurma) throws Exception{
         try {
             Turma turma = repository.findByCodigo(codigo);
@@ -90,6 +92,7 @@ public class TurmaService {
         }
     }
 
+    @Transactional
     public void deleteTurmaByCodigo(int codigo) throws Exception{
         try {
             Turma turma = repository.findByCodigo(codigo);
@@ -105,6 +108,7 @@ public class TurmaService {
         }
     }
 
+    @Transactional(readOnly = true)
     public Set<Aluno> findAllAlunosByCodigoTurma(int codigo) throws Exception{
         try {
             Turma turma = repository.findByCodigo(codigo);
@@ -121,6 +125,7 @@ public class TurmaService {
         }
     }
 
+    @Transactional
     public Turma addAlunoByCodigoTurma(int codigo, Aluno aluno) throws Exception{
         try {
             Turma turma = repository.findByCodigo(codigo);
@@ -146,6 +151,7 @@ public class TurmaService {
         }
     }
 
+    @Transactional
     public Turma deleteAlunoByMatriculaAndCodigoTurma(int codigo, int matricula) throws Exception{
         try {
             Turma turma = repository.findByCodigo(codigo);

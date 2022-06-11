@@ -5,6 +5,7 @@ import com.example.praticaweb.entities.Turma;
 import com.example.praticaweb.repositories.AlunoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -14,6 +15,7 @@ public class AlunoService {
     @Autowired
     private AlunoRepository alunoRepository;
 
+    @Transactional(readOnly = true)
     public Set<Aluno> saveAlunos(Turma newTurma){
         Set<Aluno> alunos = new HashSet<>();
         Aluno exist;
@@ -38,11 +40,12 @@ public class AlunoService {
         return false;
     }
 
+    @Transactional(readOnly = true)
     public Aluno isNullAluno(int matricula){
         Aluno aluno = alunoRepository.findByMatricula(matricula);
-        if (aluno == null){
+        if (aluno == null)
             return null;
-        }
+
         return aluno;
     }
 }
