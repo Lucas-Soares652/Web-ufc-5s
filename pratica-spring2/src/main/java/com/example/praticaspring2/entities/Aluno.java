@@ -3,7 +3,7 @@ package com.example.praticaspring2.entities;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.util.Calendar;
 
 @Entity
 @Table(name = "aluno")
@@ -18,7 +18,7 @@ public class Aluno {
     private String telefone;
     @Temporal(TemporalType.DATE)
     @JsonFormat(pattern = "dd-MM-yyyy")
-    private Date dataNasc;
+    private Calendar data_nasc;
     @Embedded
     private Endereco endereco;
 
@@ -61,12 +61,12 @@ public class Aluno {
         this.telefone = telefone;
     }
 
-    public Date getDataNasc() {
-        return dataNasc;
+    public Calendar getData_nasc() {
+        return data_nasc;
     }
 
-    public void setDataNasc(Date dataNasc) {
-        this.dataNasc = dataNasc;
+    public void setData_nasc(Calendar data_nasc) {
+        this.data_nasc = data_nasc;
     }
 
     public Endereco getEndereco() {

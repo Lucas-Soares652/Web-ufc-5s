@@ -1,4 +1,4 @@
-package com.example.praticaspring2.service;
+package com.example.praticaspring2.services;
 
 import com.example.praticaspring2.entities.Disciplina;
 import com.example.praticaspring2.exceptionHandler.disciplina.DisciplinaBadRequestException;
@@ -19,7 +19,7 @@ public class DisciplinaService {
         try {
             Disciplina disciplina = repository.findByCodigo(newDisciplina.getCodigo());
             if (disciplina != null)
-                throw new DisciplinaBadRequestException();
+                throw new DisciplinaBadRequestException("Disciplina já existe");
 
             disciplina = new Disciplina();
             disciplina.setCodigo(newDisciplina.getCodigo());
@@ -49,11 +49,16 @@ public class DisciplinaService {
     }
 
     @Transactional(readOnly = true)
-    public Disciplina isNullDisciplina(Disciplina newDisciplina){
-        Disciplina disciplina = repository.findByCodigo(newDisciplina.getCodigo());
-        if (disciplina != null)
-            return disciplina;
+    public Disciplina isNullDisciplina(Disciplina newDisciplina) throws Exception{
+        try{
+            Disciplina disciplina = repository.findByCodigo(newDisciplina.getCodigo());
+            if (disciplina == null)
+                throw new DisciplinaBadRequestException("Disciplina não existe");
 
-        return newDisciplina;
+            return disciplina;
+        }
+        catch (Exception e){
+            throw new Exception(e);
+        }
     }
 }

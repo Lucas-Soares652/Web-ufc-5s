@@ -21,7 +21,7 @@ public class DisciplinaServiceAdvince {
     @ResponseBody
     @ExceptionHandler(DisciplinaBadRequestException.class)
     public ResponseEntity<MessageExceptionHandler> disciplinaBadRequest(DisciplinaBadRequestException disciplinaBadRequestException){
-        MessageExceptionHandler error = new MessageExceptionHandler(new Date(), HttpStatus.BAD_REQUEST.value(), "Disciplina já existe");
+        MessageExceptionHandler error = new MessageExceptionHandler(new Date(), HttpStatus.BAD_REQUEST.value(), disciplinaBadRequestException.getMessage());
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 }

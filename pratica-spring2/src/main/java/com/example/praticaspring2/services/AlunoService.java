@@ -1,8 +1,9 @@
-package com.example.praticaspring2.service;
+package com.example.praticaspring2.services;
 
 import com.example.praticaspring2.entities.Aluno;
 import com.example.praticaspring2.entities.Turma;
 import com.example.praticaspring2.exceptionHandler.aluno.AlunoBadRequestException;
+import com.example.praticaspring2.exceptionHandler.aluno.AlunoBadRequestExceptionTwo;
 import com.example.praticaspring2.exceptionHandler.aluno.AlunosNotFoundException;
 import com.example.praticaspring2.repositories.AlunoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class AlunoService {
             aluno = new Aluno();
             aluno.setMatricula(newAluno.getMatricula());
             aluno.setNome(newAluno.getNome());
-            aluno.setDataNasc(newAluno.getDataNasc());
+            aluno.setData_nasc(newAluno.getData_nasc());
             aluno.setEmail(newAluno.getEmail());
             aluno.setTelefone(newAluno.getTelefone());
             aluno.setEndereco(newAluno.getEndereco());
@@ -55,18 +56,21 @@ public class AlunoService {
     }
 
     @Transactional(readOnly = true)
-    public Set<Aluno> isNullAlunos(Turma newTurma){
-        Set<Aluno> alunos = new HashSet<>();
-        Aluno exist;
-        for (Aluno aluno : newTurma.getAlunos()){
-            exist = repository.findByMatricula(aluno.getMatricula());
-            if (exist != null) {
+    public Set<Aluno> isNullAlunos(Turma newTurma) throws Exception{
+        try {
+            Set<Aluno> alunos = new HashSet<>();
+            Aluno exist;
+            for (Aluno aluno : newTurma.getAlunos()) {
+                exist = repository.findByMatricula(aluno.getMatricula());
+                if (exist == null)
+                    throw new AlunoBadRequestExceptionTwo("Aluno não existe na base de dados", aluno);
                 alunos.add(exist);
-                continue;
             }
-            alunos.add(aluno);
+            return alunos;
         }
-        return alunos;
+        catch (Exception e){
+            throw new Exception(e);
+        }
     }
 
     @Transactional(readOnly = true)
@@ -81,11 +85,16 @@ public class AlunoService {
     }
 
     @Transactional(readOnly = true)
-    public Aluno isNullAluno(int matricula){
-        Aluno aluno = repository.findByMatricula(matricula);
-        if (aluno == null){
-            return null;
+    public Aluno isNullAluno(Aluno aluno) throws Exception{
+        try {
+            Aluno exist;
+            exist = repository.findByMatricula(aluno.getMatricula());
+            if (exist == null)
+                throw new AlunoBadRequestException("Aluno não existe na base de dados");
+            return exist;
         }
-        return aluno;
+        catch (Exception e){
+            throw new Exception(e);
+        }
     }
 }

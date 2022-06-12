@@ -2,7 +2,6 @@ package com.example.praticaspring2.entities;
 
 import javax.persistence.*;
 
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,7 +18,8 @@ public class Turma {
     private Disciplina disciplina;
     @ManyToMany(cascade = { CascadeType.ALL })
     private Set<Aluno> alunos = new HashSet<>();
-    //private Set<Date> horarios = new HashSet<>();
+    @ManyToMany(cascade = { CascadeType.ALL })
+    private Set<Date> horarios = new HashSet<>();
 
     public Turma(){}
 
@@ -51,11 +51,11 @@ public class Turma {
         this.alunos = alunos;
     }
 
-//    public Set<Date> getHorarios() {
-//        return horarios;
-//    }
-//
-//    public void setHorarios(Set<Date> horarios) {
-//        this.horarios = horarios;
-//    }
+    public Set<Date> getHorarios() {
+        return horarios;
+    }
+
+    public void setHorarios(Set<Date> horarios) {
+        this.horarios = horarios;
+    }
 }

@@ -1,4 +1,4 @@
-package com.example.praticaspring2.service;
+package com.example.praticaspring2.services;
 
 import com.example.praticaspring2.entities.Aluno;
 import com.example.praticaspring2.entities.Turma;
@@ -24,6 +24,8 @@ public class TurmaService {
     private AlunoService alunoService;
     @Autowired
     private DisciplinaService disciplinaService;
+    @Autowired
+    private DateService dateService;
 
     @Transactional
     public Turma addTurma(Turma newTurma) throws Exception{
@@ -36,6 +38,7 @@ public class TurmaService {
             turma.setCodigo(newTurma.getCodigo());
             turma.setDisciplina(disciplinaService.isNullDisciplina(newTurma.getDisciplina()));
             turma.setAlunos(alunoService.isNullAlunos(newTurma));
+            turma.setHorarios(dateService.isExistsDate(newTurma.getHorarios()));
             repository.save(turma);
 
             return turma;
@@ -70,7 +73,7 @@ public class TurmaService {
             if (alunoService.alunoIsOnTheList(turma.get(), newAluno))
                 throw new AlunoBadRequestException("Aluno já está matriculado na turma");
 
-            turma.get().getAlunos().add(newAluno);
+            turma.get().getAlunos().add(alunoService.isNullAluno(newAluno));
             repository.save(turma.get());
 
             return turma.get();

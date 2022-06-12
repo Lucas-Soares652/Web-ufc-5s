@@ -1,7 +1,7 @@
 package com.example.praticaspring2.controllers;
 
 import com.example.praticaspring2.entities.Aluno;
-import com.example.praticaspring2.service.AlunoService;
+import com.example.praticaspring2.services.AlunoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

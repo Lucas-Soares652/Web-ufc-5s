@@ -2,11 +2,9 @@ package com.example.praticaspring2.controllers;
 
 import com.example.praticaspring2.entities.Aluno;
 import com.example.praticaspring2.entities.Turma;
-import com.example.praticaspring2.service.TurmaService;
+import com.example.praticaspring2.services.TurmaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Set;
 
 @RestController
 @RequestMapping(value = "/api/turma")

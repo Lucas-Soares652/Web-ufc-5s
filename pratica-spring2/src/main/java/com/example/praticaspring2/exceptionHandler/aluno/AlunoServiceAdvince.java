@@ -1,5 +1,6 @@
 package com.example.praticaspring2.exceptionHandler.aluno;
 
+import com.example.praticaspring2.exceptionHandler.AlunoMessageExceptionHandler;
 import com.example.praticaspring2.exceptionHandler.MessageExceptionHandler;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +30,13 @@ public class AlunoServiceAdvince {
     @ExceptionHandler(AlunoBadRequestException.class)
     public ResponseEntity<MessageExceptionHandler> alunoBadRequest(AlunoBadRequestException alunoBadRequestException){
         MessageExceptionHandler error = new MessageExceptionHandler(new Date(), HttpStatus.BAD_REQUEST.value(), alunoBadRequestException.getMessage());
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
+    @ResponseBody
+    @ExceptionHandler(AlunoBadRequestExceptionTwo.class)
+    public ResponseEntity<AlunoMessageExceptionHandler> alunoBadRequestTwo(AlunoBadRequestExceptionTwo alunoBadRequestException){
+        AlunoMessageExceptionHandler error = new AlunoMessageExceptionHandler(new Date(), HttpStatus.BAD_REQUEST.value(), alunoBadRequestException.getMessage(), alunoBadRequestException.getAluno());
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 }
