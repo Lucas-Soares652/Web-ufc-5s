@@ -25,7 +25,7 @@ public class TurmaService {
     @Autowired
     private DisciplinaService disciplinaService;
     @Autowired
-    private DateService dateService;
+    private HorarioService horarioService;
 
     @Transactional
     public Turma addTurma(Turma newTurma) throws Exception{
@@ -38,7 +38,7 @@ public class TurmaService {
             turma.setCodigo(newTurma.getCodigo());
             turma.setDisciplina(disciplinaService.isNullDisciplina(newTurma.getDisciplina()));
             turma.setAlunos(alunoService.isNullAlunos(newTurma));
-            turma.setHorarios(dateService.isExistsDate(newTurma.getHorarios()));
+            turma.setHorarios(horarioService.isExistsDate(newTurma.getHorarios()));
             repository.save(turma);
 
             return turma;

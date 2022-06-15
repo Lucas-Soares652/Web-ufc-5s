@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "horario")
-public class Date {
+public class Horario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,6 +31,6 @@ public class Date {
         this.horario = horario;
     }
 
-    public Date() {
+    public Horario() {
     }
 }

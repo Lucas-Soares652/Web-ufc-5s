@@ -19,7 +19,7 @@ public class Turma {
     @ManyToMany(cascade = { CascadeType.ALL })
     private Set<Aluno> alunos = new HashSet<>();
     @ManyToMany(cascade = { CascadeType.ALL })
-    private Set<Date> horarios = new HashSet<>();
+    private Set<Horario> horarios = new HashSet<>();
 
     public Turma(){}
 
@@ -51,11 +51,11 @@ public class Turma {
         this.alunos = alunos;
     }
 
-    public Set<Date> getHorarios() {
+    public Set<Horario> getHorarios() {
         return horarios;
     }
 
-    public void setHorarios(Set<Date> horarios) {
+    public void setHorarios(Set<Horario> horarios) {
         this.horarios = horarios;
     }
 }
