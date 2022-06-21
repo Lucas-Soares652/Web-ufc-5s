@@ -1,0 +1,27 @@
+<h2>Turmas</h2>
+
+<div>
+  <label for="new-turmacodigo">Turma código: </label>
+  <input id="new-turmacodigo" #turmacodigo />
+  
+  <label for="new-turmadisciplina">Turma disciplina: </label>
+  <input id="new-turmadisciplina" #turmadisciplina />
+  
+  <label for="new-turmasemestre">Turma semestre: </label>
+  <input id="new-turmasemestre" #turmasemestre />
+
+  <!-- (click) passes input value to add() and then clears the input -->
+  <button type="button" class="add-button" (click)="add(turmacodigo.value, turmadisciplina.value, turmasemestre.value); ">
+    Add turma
+  </button>
+</div>
+
+<ul class="heroes">
+  <li *ngFor="let turma of turmas">
+    <a routerLink="/detail/{{turma.codigo}}">
+      <span class="badge">{{turma.id}}</span> disciplina: {{turma.disciplina}}
+    </a>
+    <button type="button" class="delete" title="delete turma"
+      (click)="delete(turma)">x</button>
+  </li>
+</ul>

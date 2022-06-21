@@ -1,0 +1,18 @@
+<div *ngIf="turma">
+    <h2>{{turma.disciplina | uppercase}} Details</h2>
+    <div><span>id: </span>{{turma.id}}</div>
+    <div><span>código: </span>{{turma.codigo}}</div>
+    <div><span>semestre: </span>{{turma.semestre}}</div>
+    <div>
+      <label for="turma-codigo">Turma código: </label>
+      <input id="turma-codigo" [(ngModel)]="turma.codigo" placeholder="Turma codigo"/>
+
+      <label for="turma-disciplina">Turma disciplina: </label>
+      <input id="turma-disciplina" [(ngModel)]="turma.disciplina" placeholder="Turma disciplina"/>
+
+      <label for="turma-semestre">Turma semestre: </label>
+      <input id="turma-semestre" [(ngModel)]="turma.semestre" placeholder="Turma semestre"/>
+    </div>
+    <button type="button" (click)="goBack()">go back</button>
+    <button type="button" (click)="save(turma.codigo, turma.disciplina, turma.semestre)">save</button>
+  </div>

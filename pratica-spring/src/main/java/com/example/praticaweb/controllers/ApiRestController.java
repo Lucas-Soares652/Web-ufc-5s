@@ -24,6 +24,16 @@ public class ApiRestController {
         }
     }
 
+    @RequestMapping("/disciplina")
+    public Iterable<Turma> getTurmaByDisciplina(@RequestParam("disciplina")String disciplina) throws Exception{
+        try {
+            return turmaService.findByDisciplina(disciplina);
+        }
+        catch (Exception e){
+            throw new Exception(e);
+        }
+    }
+
     @GetMapping(value = "/{codigo}")
     public Turma getTurmaByCodigo(@PathVariable int codigo) throws Exception{
         try {

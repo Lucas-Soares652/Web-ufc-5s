@@ -1,0 +1,14 @@
+<div id="search-component">
+    <label for="search-box">Turma Search</label>
+    <input #searchBox id="search-box" (input)="search(searchBox.value)" />
+  
+    <ul class="search-result">
+      <li *ngFor="let turma of turmas$ | async" >
+        <a routerLink="/detail/{{turma.codigo}}">
+          código: {{turma.codigo}},
+          disciplina: {{turma.disciplina}},
+          semestre: {{turma.semestre}}
+        </a>
+      </li>
+    </ul>
+  </div>

@@ -34,6 +34,20 @@ public class TurmaService {
         }
     }
 
+    @Transactional(readOnly = true)
+    public Iterable<Turma> findByDisciplina(String disciplina) throws Exception{
+        try {
+            Iterable<Turma> turmas = repository.findByDisciplina(disciplina);
+            if (!turmas.iterator().hasNext())
+                throw new TurmaNotFoundException();
+
+            return turmas;
+        }
+        catch (Exception e){
+            throw new Exception(e);
+        }
+    }
+
     @Transactional
     public Turma addTurma(Turma newTurma) throws Exception {
         try {

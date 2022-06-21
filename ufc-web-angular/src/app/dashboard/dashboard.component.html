@@ -1,0 +1,10 @@
+<h2>Top Turmas</h2>
+<div class="turmas-menu">
+  <a *ngFor="let turma of turmas"
+      routerLink="/detail/{{turma.codigo}}">
+      código: {{turma.codigo}},
+      disciplina: {{turma.disciplina}}
+  </a>
+</div>
+
+<app-turma-search></app-turma-search>
