@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { StorageService } from '../storage.service';
 
 import { Turma } from '../turma';
 import { TurmaService } from '../turma.service';
@@ -11,7 +12,7 @@ import { TurmaService } from '../turma.service';
 export class TurmasComponent implements OnInit {
   turmas: Turma[] = [];
 
-  constructor(private turmaService: TurmaService) { }
+  constructor(private turmaService: TurmaService, private storage: StorageService) { }
 
   ngOnInit(): void {
     this.getTurmas();
@@ -36,5 +37,9 @@ export class TurmasComponent implements OnInit {
   delete(turma: Turma): void {
     this.turmas = this.turmas.filter(h => h !== turma);
     this.turmaService.deleteTurma(turma.codigo).subscribe();
+  }
+
+  sair(): void{
+    this.storage.clear();
   }
 }

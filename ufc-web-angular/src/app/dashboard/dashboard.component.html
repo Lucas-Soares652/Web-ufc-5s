@@ -1,3 +1,9 @@
+<nav>
+  <a class="turma" routerLink="/turmas">Turmas</a>
+  <a class="sair" routerLink="/login" (click)="sair();">
+    sair
+  </a>
+</nav>
 <h2>Top Turmas</h2>
 <div class="turmas-menu">
   <a *ngFor="let turma of turmas"

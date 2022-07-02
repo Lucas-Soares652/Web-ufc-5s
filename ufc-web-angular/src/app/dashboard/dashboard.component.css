@@ -22,7 +22,7 @@ h2 {
   align-items: flex-start;
 }
 
-a {
+.turmas-menu a {
   background-color: #3f525c;
   border-radius: 2px;
   padding: 1rem;
@@ -43,12 +43,41 @@ a {
 }
 
 @media (min-width: 600px) {
-  a {
-    width: 18%;
+  .turmas-menu a {
+    width: 30%;
     box-sizing: content-box;
   }
 }
 
-a:hover {
+.turmas-menu a:hover {
+  background-color: black;
+}
+
+nav .turma {
+  padding: 1rem;
+  text-decoration: none;
+  margin-top: 10px;
+  display: inline-block;
+  background-color: #e8e8e8;
+  color: #3d3d3d;
+  border-radius: 4px;
+}
+
+nav .sair {
+  padding: 1rem;
+  text-decoration: none;
+  margin-top: 10px;
+  display: inline-block;
+  background-color: #e8e8e8;
+  color: #3d3d3d;
+  border-radius: 4px;
+  float: right;
+}
+
+nav  a:hover {
+  color: white;
+  background-color: #42545C;
+}
+nav a.active {
   background-color: black;
 }

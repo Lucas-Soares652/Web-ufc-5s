@@ -21,17 +21,15 @@ export class TurmaService {
     private http: HttpClient,
     private messageService: MessageService) { }
 
-  /** GET turmas from the server */
   getTurmas(): Observable<Turma[]> {
     return this.http.get<Turma[]>(this.turmasUrl);
   }
 
-  /** GET hero by id. Return `undefined` when id not found */
   getTurmaNo404<Data>(codigo: number): Observable<Turma> {
     const url = this.turmasUrl;
     return this.http.get<Turma[]>(url)
       .pipe(
-        map(turmas => turmas[0]), // returns a {0|1} element array
+        map(turmas => turmas[0]),
         tap(h => {
           const outcome = h ? 'fetched' : 'did not find';
           this.log(`${outcome} turma codigo=${codigo}`);
@@ -40,7 +38,6 @@ export class TurmaService {
       );
   }
 
-  /** GET hero by id. Will 404 if id not found */
   getTurma(codigo: number): Observable<Turma> {
     const url = this.turmasUrl;
     return this.http.get<Turma>(`${url}/${codigo}`).pipe(
@@ -49,10 +46,8 @@ export class TurmaService {
     );
   }
 
-  /* GET turmas whose name contains search term */
   searchTurmas(term: string): Observable<Turma[]> {
     if (!term.trim()) {
-      // if not search term, return empty hero array.
       return of([]);
     }
     return this.http.get<Turma[]>(`${this.turmasUrl}/disciplina?disciplina=${term}`).pipe(
@@ -63,9 +58,6 @@ export class TurmaService {
     );
   }
 
-  //////// Save methods //////////
-
-  /** POST: add a new hero to the server */
   addTurma(turma: Turma): Observable<Turma> {
     return this.http.post<Turma>(this.turmasUrl, turma, this.httpOptions).pipe(
       tap((newTurma: Turma) => this.log(`added turma w/ codigo=${newTurma.codigo}`)),
@@ -73,7 +65,6 @@ export class TurmaService {
     );
   }
 
-  /** DELETE: delete the hero from the server */
   deleteTurma(codigo: number): Observable<Turma> {
     const url = `${this.turmasUrl}/${codigo}`;
 
@@ -83,7 +74,6 @@ export class TurmaService {
     );
   }
 
-  /** PUT: update the hero on the server */
   updateTurma(turma: Turma, codigo: string): Observable<any> {
     return this.http.put(`${this.turmasUrl}/${codigo}`, turma, this.httpOptions).pipe(
       tap(_ => this.log(`updated turma codigo=${turma.codigo}`)),
@@ -91,28 +81,14 @@ export class TurmaService {
     );
   }
 
-  /**
-   * Handle Http operation that failed.
-   * Let the app continue.
-   *
-   * @param operation - name of the operation that failed
-   * @param result - optional value to return as the observable result
-   */
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
-
-      // TODO: better job of transforming error for user consumption
+      console.error(error);
       this.log(`${operation} failed: ${error.message}`);
-
-      // Let the app keep running by returning an empty result.
       return of(result as T);
     };
   }
 
-  /** Log a HeroService message with the MessageService */
   private log(message: string) {
     this.messageService.add(`TurmaService: ${message}`);
   }
